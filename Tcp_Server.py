@@ -1,7 +1,7 @@
 import socket
 import threading
 
-IP = '0.0.0.0'
+IP = '192.168.56.1'
 PORT = 9998
 
 def main():
@@ -13,7 +13,7 @@ def main():
     while True:
         client, address = server.accept()
         print(f'[*] Accepted connection from {address[0]}: {address[1]}')
-        client_handler = threading.Threat(target=handle_client, args=(client,))
+        client_handler = threading.Thread(target=handle_client, args=(client,))
         client_handler.start()
 
 def handle_client(client_socket):
@@ -22,5 +22,5 @@ def handle_client(client_socket):
         print(f'[*] Received: {request.decode("utf-8")}')
         sock.send(b'ACK')
 
-if __name__ == 'main':
+if __name__ == '__main__':
     main()
